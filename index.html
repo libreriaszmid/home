@@ -560,17 +560,26 @@
 			      };
 
 
-			      $scope.addCrt = function(e,itm){
-			        e.setAttribute('class','fa fa-check-circle w3-xxlarge pointer');
-			        e.style.color = $scope.cgre;
-				    addItmCrt(itm);
-				    setTimeout(function () {
-				      e.setAttribute('class','fa fa-cart-plus w3-xxlarge pointer');
-				      e.style.color = $scope.cblu;
-				    }, 600);
+			    $scope.addCrt = function(e, itm) {
+    let cantidad = prompt("Selecciona la cantidad:", "1");
+    
+    // Si el usuario no cancela y la cantidad es válida
+    if (cantidad !== null && !isNaN(cantidad) && cantidad > 0) {
+        itm.q = parseInt(cantidad); // Guardamos la cantidad seleccionada
 
-
-			      }
+        e.setAttribute('class', 'fa fa-check-circle w3-xxlarge pointer');
+        e.style.color = $scope.cgre;
+        
+        addItmCrt(itm); // Agregamos el producto con la cantidad seleccionada
+        
+        setTimeout(function () {
+            e.setAttribute('class', 'fa fa-cart-plus w3-xxlarge pointer');
+            e.style.color = $scope.cblu;
+        }, 600);
+    } else {
+        alert("Por favor, ingresa una cantidad válida.");
+    }
+};
 
 			      $scope.myCrt = function(){
 			        modCrt.style.display='block';
