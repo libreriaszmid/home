@@ -560,12 +560,20 @@
 			      };
 
 
-			    $scope.addCrt = function(e, itm) {
+			   $scope.addCrt = function(e, itm) {
     let cantidad = prompt("Selecciona la cantidad:", "1");
-    
-    // Si el usuario no cancela y la cantidad es válida
+
+    // Validamos que la cantidad ingresada sea un número mayor que 0
     if (cantidad !== null && !isNaN(cantidad) && cantidad > 0) {
-        itm.q = parseInt(cantidad); // Guardamos la cantidad seleccionada
+        cantidad = parseInt(cantidad); // Convertimos el valor a número entero
+
+        let productoEnCarrito = getStg().itms.find(p => p.i === itm.i);
+
+        if (productoEnCarrito) {
+            productoEnCarrito.q += cantidad; // Si el producto ya está en el carrito, sumamos la cantidad
+        } else {
+            itm.q = cantidad; // Si es un producto nuevo, le asignamos la cantidad ingresada
+        }
 
         e.setAttribute('class', 'fa fa-check-circle w3-xxlarge pointer');
         e.style.color = $scope.cgre;
